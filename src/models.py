@@ -84,7 +84,8 @@ class Order(models.Model):
     item = models.ManyToManyField(OrderItem)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
-    billing_address = models.ForeignKey('BillingAddress', on_delete=models.SET_NULL, blank=True, null=True)
+    shipping_address = models.ForeignKey('Address', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    billing_address = models.ForeignKey('Address',related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
     payment = models.ForeignKey('Payment', on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey('Coupon', on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -100,15 +101,26 @@ class Order(models.Model):
         return total
 
 
-class BillingAddress(models.Model):
+ADDRESS_CHOICES = (
+    ('B', 'billing'),
+    ('S', 'Shipping'),
+)
+
+
+class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=120)
     apartment_address = models.CharField(max_length=120)
     country = CountryField(multiple=False)
     zip = models.CharField(max_length=10)
+    address_type = models.CharField(choices=ADDRESS_CHOICES, max_length=1)
+    default = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
+
+    class Meta:
+        verbose_name_plural = 'Addresses'
 
 
 
