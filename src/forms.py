@@ -9,20 +9,42 @@ PAYMENT_CHOICE = (
 
 
 class CheckoutForm(forms.Form):
-    street_address = forms.CharField(widget=forms.TextInput(attrs={
+    shipping_address = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder' : '1234 Main St'
     }))
-    apartment_address = forms.CharField(required=False , widget=forms.TextInput(attrs={
+    shipping_apartment_address = forms.CharField(required=False , widget=forms.TextInput(attrs={
         'placeholder' : 'Apartment or suite'
     }))
-    country = CountryField(blank_label= '(select country)').formfield(widget=CountrySelectWidget(attrs={
+    shipping_country = CountryField(blank_label= '(select country)').formfield(widget=CountrySelectWidget(attrs={
         'class' : 'custom-select d-block w-100'
     }))
-    zip = forms.CharField()
+    shipping_zip = forms.CharField()
+    billing_address = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder' : '1234 Main St'
+    }))
+    billing_apartment_address = forms.CharField(required=False , widget=forms.TextInput(attrs={
+        'placeholder' : 'Apartment or suite'
+    }))
+    billing_country = CountryField(blank_label= '(select country)').formfield(widget=CountrySelectWidget(attrs={
+        'class' : 'custom-select d-block w-100'
+    }))
+    billing_zip = forms.CharField()
+    same_shipping_address = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        'class' : 'custom-control-input'
+    }))
+    save_shipping_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        'class' : 'custom-control-input'
+    }))
+    default_shipping_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        'class' : 'custom-control-input'
+    }))
     same_billing_address = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
         'class' : 'custom-control-input'
     }))
-    save_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+    save_billing_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        'class' : 'custom-control-input'
+    }))
+    default_billing_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
         'class' : 'custom-control-input'
     }))
     payment_option = forms.ChoiceField(widget=forms.RadioSelect, choices=PAYMENT_CHOICE)

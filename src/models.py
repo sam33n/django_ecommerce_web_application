@@ -97,7 +97,8 @@ class Order(models.Model):
         total = 0
         for order_item in self.item.all():
             total += order_item.get_final_total()
-        total -= self.coupon.amount
+        if self.coupon:
+            total -= self.coupon.amount
         return total
 
 
