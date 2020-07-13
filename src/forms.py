@@ -9,44 +9,27 @@ PAYMENT_CHOICE = (
 
 
 class CheckoutForm(forms.Form):
-    shipping_address = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder' : '1234 Main St'
-    }))
-    shipping_apartment_address = forms.CharField(required=False , widget=forms.TextInput(attrs={
-        'placeholder' : 'Apartment or suite'
-    }))
-    shipping_country = CountryField(blank_label= '(select country)').formfield(widget=CountrySelectWidget(attrs={
+    shipping_address = forms.CharField(required=False)
+    shipping_apartment_address = forms.CharField(required=False)
+    shipping_country = CountryField(
+        blank_label= '(select country)').formfield(required=False ,
+         widget=CountrySelectWidget(attrs={
         'class' : 'custom-select d-block w-100'
     }))
-    shipping_zip = forms.CharField()
-    billing_address = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder' : '1234 Main St'
-    }))
-    billing_apartment_address = forms.CharField(required=False , widget=forms.TextInput(attrs={
-        'placeholder' : 'Apartment or suite'
-    }))
-    billing_country = CountryField(blank_label= '(select country)').formfield(widget=CountrySelectWidget(attrs={
+    shipping_zip = forms.CharField(required=False)
+    billing_address = forms.CharField(required=False)
+    billing_apartment_address = forms.CharField(required=False)
+    billing_country = CountryField(blank_label= '(select country)').formfield(required=False ,
+         widget=CountrySelectWidget(attrs={
         'class' : 'custom-select d-block w-100'
     }))
     billing_zip = forms.CharField()
-    same_shipping_address = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
-        'class' : 'custom-control-input'
-    }))
-    save_shipping_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
-        'class' : 'custom-control-input'
-    }))
-    default_shipping_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
-        'class' : 'custom-control-input'
-    }))
-    same_billing_address = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
-        'class' : 'custom-control-input'
-    }))
-    save_billing_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
-        'class' : 'custom-control-input'
-    }))
-    default_billing_info = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
-        'class' : 'custom-control-input'
-    }))
+
+    use_default_shipping = forms.BooleanField(required=False)
+    set_default_shipping = forms.BooleanField(required=False)
+    same_billing_address = forms.BooleanField(required=False)
+    use_default_billing = forms.BooleanField(required=False)
+    set_default_billing = forms.BooleanField(required=False)
     payment_option = forms.ChoiceField(widget=forms.RadioSelect, choices=PAYMENT_CHOICE)
 
 
