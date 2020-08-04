@@ -14,12 +14,21 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-
+from .models import CATEGORY_CHOICES
 
 class HomeView(ListView):
     model = Item
     paginate_by = 5
     template_name = 'home.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        query = self.request.GET.get('query')
+        codes = CATEGORY_CHOICES
+        item = Item.objects.filter(category__icontains=query)
+      
+        context['search_item'] = item
+        return context
 
 
 

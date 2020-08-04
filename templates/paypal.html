@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      <!-- Heading -->
+      <h2 class="my-5 h2 text-center">Payment</h2>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-12 mb-4">
+
+              
+            <div id="paypal-button-container"></div>
+            <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
+            <script>
+              paypal.Buttons({
+                  style: {
+                      shape: 'rect',
+                      color: 'gold',
+                      layout: 'vertical',
+                      label: 'paypal',
+                      
+                  },
+                  createOrder: function(data, actions) {
+                      return actions.order.create({
+                          purchase_units: [{
+                              amount: {
+                                  value: '1'
+                              }
+                          }]
+                      });
+                  },
+                  onApprove: function(data, actions) {
+                      return actions.order.capture().then(function(details) {
+                          alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                      });
+                  }
+              }).render('#paypal-button-container');
+            </script>
+              
+
+        </div>
+        <!--Grid column-->
+
+        {% include 'order_snippet.html' %}
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+  {% endblock content %}

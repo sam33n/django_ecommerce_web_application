@@ -9,6 +9,7 @@ from .views import ( HomeView,
                      PaymentView,
                      CouponView,
 )
+from django.views.generic import TemplateView
 
 app_name = 'src'
 
@@ -22,4 +23,5 @@ urlpatterns = [
     path('remove-from-cart/<slug>/' , remove_from_cart , name='remove-from-cart'),
     path('remove-single-item-from-cart/<slug>/' , remove_single_item_from_cart , name='remove-single-item-from-cart'),
     path('payment/<payment_option>/' , PaymentView.as_view() , name='payment-option'),
+    path('paypal/' , TemplateView.as_view(template_name='paypal.html') , name='paypal'),
 ]

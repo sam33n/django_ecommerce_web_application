@@ -79,10 +79,10 @@
                   <input type="checkbox" class="custom-control-input" name="set_default_shipping" value="set_default_shipping" id="set_default_shipping">
                   <label class="custom-control-label" for="set_default_shipping">Save as default address</label>
                 </div>
-                {% if default_shipping_address %}
+                {% if use_default_shipping %}
                 <div class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" name="use_default_shipping" value="use_default_shipping" id="use_default_shipping">
-                  <label class="custom-control-label" for="use_default_shipping">Use default shipping address : {{ default_shipping_address.street_address | truncatechars:10 }}</label>
+                  <label class="custom-control-label" for="use_default_shipping">Use default shipping address : {{ use_default_shipping.street_address | truncatechars:10 }}</label>
                 </div>
                 {% endif %}
             </div>
@@ -146,11 +146,11 @@
                     <input type="checkbox" class="custom-control-input" name="set_default_billing" value="set_default_billing"  id="set_default_billing">
                     <label class="custom-control-label" for="set_default_billing">Save as default address</label>
                   </div>
-                  {% if default_billing_address %}
+                  {% if use_default_billing %}
                   <div class="custom-control custom-checkbox">
                     <input  type="checkbox" class="custom-control-input" name="use_default_billing"  value="use_default_billing" id="use_default_billing">
-                    {{ default_billing_address.address | truncatechars:10 }}
-                    <label class="custom-control-label" for="use_default_billing">Use default billing address</label>
+                    
+                    <label class="custom-control-label" for="use_default_billing">Use default billing address : {{ use_default_billing.street_address | truncatechars:10 }}</label>
                   </div>
                   {% endif %}
               </div>
